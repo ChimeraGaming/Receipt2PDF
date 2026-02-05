@@ -1,59 +1,60 @@
 # Receipt2PDF
 
-**Client-side receipt scanner with OCR - upload, edit, and print receipts to PDF. No backend required!**
+Client-side receipt scanner with OCR — upload, edit, and print receipts to PDF.  
+Local-first: OCR runs in the browser (Tesseract). Optional AI assist (Hugging Face or OCR.Space) is available if you supply your own API key.
 
-Live Demo: https://chimeragaming.github.io/Receipt2PDF/
+Live demo: https://chimeragaming.github.io/Receipt2PDF/ 
 
-## License & Usage
+## Quick Features
 
-**Application Use:** Free for everyone - use the live demo as much as you want!
+- Upload receipt image in your browser
+- Local OCR using Tesseract.js (no server required)
+- Optional AI cleanup:
+  - Hugging Face — text correction & JSON extraction
+  - OCR.Space — cloud OCR alternative
+- Editable formatted receipt and one-click Print to PDF
+- Keys (if provided) are stored locally in the browser or can be placed in a local config file — never committed to the repo
 
-**Source Code:** Copyright (c) 2026 ChimeraGaming. All Rights Reserved.
+## Security & Privacy (Important)
 
-The source code is viewable for transparency and learning, but may not be copied, 
-modified, or used in other projects. See the LICENSE file for full terms.
+- API keys MUST NOT be committed to the repository. Do NOT paste keys into issues, PRs, or code.
+- Keys stored via the app UI are saved in your browser's `localStorage` and stay only on that device.
+- Alternatively use a local `config.js` (ignored by git) to provide keys to the app.
+- If a key is ever exposed, revoke it at the provider immediately and generate a new one.
 
-## Features
+## How to Get API Keys
 
-- Upload receipt images directly in your browser
-- Client-side OCR using Tesseract.js (no server needed)
-- Fully editable formatted output
-- Print to PDF with one click
-- Toggle to include original image in printout
-- 100% client-side - works on GitHub Pages
-- Private - your receipts never leave your device
-- Free to use - no API keys or subscriptions required
+Hugging Face (for text correction / JSON extraction)
+1. Visit: https://huggingface.co/settings/tokens
+2. Click "New token" (name it e.g. `Receipt2PDF`)
+3. Recommended scopes: minimal inference/read scopes (only what you need)
+4. Copy the token and paste it into the app (see Storage below)
 
-## Technologies
+OCR.Space (alternative OCR)
+1. Visit: https://ocr.space/ocrapi
+2. Sign up and obtain an API key from your dashboard
+3. Copy the key and paste it into the app (see Storage below)
 
-- HTML5 / CSS3 / Vanilla JavaScript
-- [Tesseract.js](https://tesseract.projectnaptha.com/) for OCR
-- GitHub Pages for hosting
+## How to Store Keys (two safe options)
 
-## How to Use
+Option A — Use the in-app Key UI (recommended)
+1. Open the app in your browser.
+2. Upload any image to make the AI controls appear.
+3. In the AI section:
+   - Paste your Hugging Face token into the HF field and click "Save HF Key".
+   - Paste your OCR.Space key into the OCR field and click "Save OCR Key".
+4. Keys are stored under localStorage keys:
+   - `receipt2pdf_hf_key`
+   - `receipt2pdf_ocr_key`
+5. To remove a key from the browser later: open DevTools → Console and run:
+   - localStorage.removeItem('receipt2pdf_hf_key')
+   - localStorage.removeItem('receipt2pdf_ocr_key')
 
-1. Visit https://chimeragaming.github.io/Receipt2PDF/
-2. Upload a receipt image
-3. Wait for OCR to process
-4. Edit any mistakes in the formatted output
-5. Toggle whether to include the original image
-6. Click "Print to PDF" to save
-
-## Project Structure
-
-```
-Receipt2PDF/
-├── index.html      # Main page with upload and display
-├── style.css       # Styling with print styles
-├── app.js          # OCR logic, parsing, and rendering
-├── LICENSE         # Usage terms
-└── README.md       # Documentation
-```
-
-## Questions?
-
-For licensing inquiries or commercial use, please contact ChimeraGaming.
-
----
-
-Made by [ChimeraGaming](https://github.com/ChimeraGaming)
+Option B — Local config file (keeps keys off browser storage and out of VCS)
+1. Create a file named `config.js` next to `index.html` (DO NOT commit this file).
+2. Add:
+```javascript
+window.RECEIPT2PDF_CONFIG = {
+  HUGGING_FACE_KEY: '<YOUR_HUGGINGFACE_KEY>',
+  OCRSPACE_KEY: '<YOUR_OCRSPACE_KEY>'
+};
