@@ -1,6 +1,6 @@
 # Receipt2PDF
 
-Client-side receipt scanner with OCR — upload, edit, and print receipts to PDF.  
+Client-side receipt scanner with OCR - upload, edit, and print receipts to PDF.  
 Local-first: OCR runs in the browser (Tesseract). Optional AI assist (Hugging Face or OCR.Space) is available if you supply your own API key.
 
 Live demo: https://chimeragaming.github.io/Receipt2PDF/ 
@@ -13,7 +13,7 @@ Live demo: https://chimeragaming.github.io/Receipt2PDF/
   - Hugging Face - text correction & JSON extraction
   - OCR.Space - cloud OCR alternative
 - Editable formatted receipt and one-click Print to PDF
-- Keys (if provided) are stored locally in the browser or can be placed in a local config file — never committed to the repo
+- Keys (if provided) are stored locally in the browser or can be placed in a local config file - never committed to the repo
 
 ## Security & Privacy (Important)
 
