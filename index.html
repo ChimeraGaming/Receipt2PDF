@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Receipt2PDF</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Tesseract for local OCR -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Receipt2PDF</h1>
-      <p>Upload a receipt image, OCR it, optionally improve it with AI, then edit and print to PDF.</p>
+      <p>Upload a receipt image, OCR it locally, optionally improve it with AI, then edit and print to PDF.</p>
     </header>
 
     <button id="printBtn" class="print-btn" style="display:none">Print to PDF</button>
@@ -31,7 +30,7 @@
       <img id="previewImg" alt="Receipt preview" />
     </div>
 
-    <!-- Optional: AI Assist Section (with Get Key prompts and Save/Clear) -->
+    <!-- AI Assist UI (localStorage keys only) -->
     <div id="aiSection" class="toggle-section" style="display:none;">
       <h3>Optional AI Assist (external)</h3>
 
@@ -43,51 +42,26 @@
         </select>
       </div>
 
-      <!-- Hugging Face Key Row -->
       <div style="margin-bottom:8px; display:flex; gap:8px; align-items:center;">
         <div style="flex:1;">
           <label for="hfKey">Hugging Face API Key:</label>
-          <input id="hfKey" type="password" placeholder="Paste Hugging Face key (local only)" style="width:100%" />
+          <input id="hfKey" type="password" placeholder="Paste HF key (local only)" style="width:100%" />
         </div>
         <div style="display:flex;flex-direction:column;gap:6px;">
-          <button id="hfGetBtn" title="Open Hugging Face tokens page">Get HF Key</button>
           <button id="hfSaveBtn">Save HF Key</button>
           <button id="hfClearBtn">Clear</button>
         </div>
       </div>
 
-      <div id="hfPrompt" class="provider-prompt" style="display:none; margin-bottom:12px; background:#fff; color:#111; padding:10px; border-radius:6px;">
-        <strong>How to create a Hugging Face token</strong>
-        <ol>
-          <li>Open: <a id="hfLink" href="https://huggingface.co/settings/tokens" target="_blank" rel="noreferrer">https://huggingface.co/settings/tokens</a></li>
-          <li>Click "New token", name it (e.g. <em>Receipt2PDF</em>).</li>
-          <li>Recommended scope: Inference / Read (keep it minimal).</li>
-          <li>Copy the token, paste it into the field above and click <em>Save HF Key</em>.</li>
-          <li>Key is stored locally in your browser only (localStorage).</li>
-        </ol>
-      </div>
-
-      <!-- OCR.Space Key Row -->
       <div style="margin-bottom:8px; display:flex; gap:8px; align-items:center;">
         <div style="flex:1;">
           <label for="ocrKey">OCR.Space API Key:</label>
           <input id="ocrKey" type="password" placeholder="Paste OCR.Space key (local only)" style="width:100%" />
         </div>
         <div style="display:flex;flex-direction:column;gap:6px;">
-          <button id="ocrGetBtn" title="Open OCR.Space signup page">Get OCR Key</button>
           <button id="ocrSaveBtn">Save OCR Key</button>
           <button id="ocrClearBtn">Clear</button>
         </div>
-      </div>
-
-      <div id="ocrPrompt" class="provider-prompt" style="display:none; margin-bottom:12px; background:#fff; color:#111; padding:10px; border-radius:6px;">
-        <strong>How to create an OCR.Space key</strong>
-        <ol>
-          <li>Open: <a id="ocrLink" href="https://ocr.space/ocrapi" target="_blank" rel="noreferrer">https://ocr.space/ocrapi</a></li>
-          <li>Sign up (free plan available) and obtain your API key from your dashboard.</li>
-          <li>Copy the key, paste into the field above and click <em>Save OCR Key</em>.</li>
-          <li>Note: OCR.Space may restrict browser CORS; if you see a CORS error, use Hugging Face text correction instead.</li>
-        </ol>
       </div>
 
       <div style="margin-top:6px;">
@@ -95,10 +69,21 @@
         <span id="aiStatus" style="margin-left:8px;color:#444;"></span>
       </div>
 
+      <div id="aiError" style="margin-top:8px;color:#b00;display:none;"></div>
+
+      <div style="margin-top:12px;">
+        <button id="showProxyBtn">Show proxy instructions (if direct call fails)</button>
+      </div>
+
       <p style="font-size:0.9em; margin-top:10px;">
-        Privacy note: keys saved here are stored locally in your browser (localStorage). They are never committed to this repository.
-        Do not paste keys on public or shared machines unless you understand the trade-offs.
+        Keys saved here are stored locally in your browser (localStorage). They are never committed to this repository.
+        If you previously exposed keys publicly, revoke and regenerate them first.
       </p>
+    </div>
+
+    <div id="controls" style="display:none; margin:12px 0;">
+      <button id="copyOcrBtn">Copy OCR Text</button>
+      <button id="downloadOcrBtn">Download OCR Text</button>
     </div>
 
     <div id="toggleSection" class="toggle-section" style="display:none;">
@@ -120,12 +105,9 @@
     </div>
 
     <footer>
-      <p>100% client-side. Keys are stored locally in your browser.</p>
+      <p>Local OCR by Tesseract. AI features are optional and require your key.</p>
     </footer>
   </div>
-
-  <!-- Optional local config file (create config.js locally if you prefer to store keys in a file; do NOT commit it) -->
-  <script src="config.js"></script>
 
   <script src="app.js"></script>
 </body>
