@@ -10,8 +10,8 @@ Live demo: https://chimeragaming.github.io/Receipt2PDF/
 - Upload receipt image in your browser
 - Local OCR using Tesseract.js (no server required)
 - Optional AI cleanup:
-  - Hugging Face — text correction & JSON extraction
-  - OCR.Space — cloud OCR alternative
+  - Hugging Face - text correction & JSON extraction
+  - OCR.Space - cloud OCR alternative
 - Editable formatted receipt and one-click Print to PDF
 - Keys (if provided) are stored locally in the browser or can be placed in a local config file — never committed to the repo
 
@@ -37,7 +37,7 @@ OCR.Space (alternative OCR)
 
 ## How to Store Keys (two safe options)
 
-Option A — Use the in-app Key UI (recommended)
+Option A - Use the in-app Key UI (recommended)
 1. Open the app in your browser.
 2. Upload any image to make the AI controls appear.
 3. In the AI section:
@@ -50,7 +50,7 @@ Option A — Use the in-app Key UI (recommended)
    - localStorage.removeItem('receipt2pdf_hf_key')
    - localStorage.removeItem('receipt2pdf_ocr_key')
 
-Option B — Local config file (keeps keys off browser storage and out of VCS)
+Option B - Local config file (keeps keys off browser storage and out of VCS)
 1. Create a file named `config.js` next to `index.html` (DO NOT commit this file).
 2. Add:
 ```javascript
