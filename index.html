@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt to PDF Scanner</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Header Section -->
+        <header>
+            <h1>Receipt to PDF Scanner</h1>
+            <p>Upload a receipt image, OCR it, edit, and print to PDF - all in your browser!</p>
+        </header>
+
+        <!-- Print Button (Hidden until receipt is processed) -->
+        <button id="printBtn" class="print-btn" style="display: none;">
+            Print to PDF
+        </button>
+
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <label for="uploadInput" class="upload-label">
+                Choose Receipt Image
+            </label>
+            <input type="file" id="uploadInput" accept="image/*" />
+            
+            <div id="status" class="status"></div>
+            
+            <div id="progressBar" class="progress-bar" style="display: none;">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Image Preview Section -->
+        <div id="imagePreview" class="image-preview" style="display: none;">
+            <h3>Uploaded Image:</h3>
+            <img id="previewImg" alt="Receipt preview" />
+        </div>
+
+        <!-- Toggle Section: Include Image in Printout -->
+        <div id="toggleSection" class="toggle-section" style="display: none;">
+            <label class="toggle-container">
+                <input type="checkbox" id="includeImageToggle" checked />
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Include original image in PDF printout</span>
+            </label>
+        </div>
+
+        <!-- Formatted Receipt Output Section -->
+        <div id="receiptContainer" class="receipt-wrapper" style="display: none;">
+            
+            <!-- Original Image Container (for printing only) -->
+            <div id="printImageContainer" class="print-image-container">
+                <h3>Original Receipt Image:</h3>
+                <img id="printImg" alt="Original receipt" />
+            </div>
+            
+            <!-- Editable Receipt Content -->
+            <div id="receiptOutput" contenteditable="true" class="receipt-container">
+                <!-- Formatted receipt will be inserted here by JavaScript -->
+            </div>
+            
+            <p class="edit-hint">Click on any text above to edit and correct OCR mistakes</p>
+        </div>
+        
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>100% Client-Side • No Backend • No API Keys • Powered by Tesseract.js</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
